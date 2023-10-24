@@ -1,12 +1,10 @@
-import 'dart:html';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:push/main.dart';
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
   Future<void> initNotifications() async {
-    await _firebaseMessaging.requestPermisson();
+    await _firebaseMessaging.requestPermission();
     final fCMToken = await _firebaseMessaging.getToken();
     print('Token: $fCMToken');
     // initialize further settings for push notifications
@@ -30,6 +28,6 @@ class FirebaseApi {
     //handle notification if the app was terminated and now opened
     FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
     // attach event listeners for when a notification opens the App
-    FirebaseMessaging.onMessageOpenApp.listen(handleMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
   }
 }
